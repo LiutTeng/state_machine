@@ -6,8 +6,8 @@ import com.example.statemachine.constant.OrderEvent;
 /**
  * @author liuteng
  */
-public interface OrderStatusService {
+public interface OrderStatusManageService {
 
-    boolean sendMessage(OrderEvent event, Order order);
+    boolean modifyOrderStatus(OrderEvent event, Order order);
 
 }
