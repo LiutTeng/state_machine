@@ -14,6 +14,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 @SpringBootApplication
 public class StateMachineApplication {
 
+    private static final String FORMAT = "事件: %s  单号: %s, 状态: %s";
 
     public static void main(String[] args) {
 
@@ -21,8 +22,14 @@ public class StateMachineApplication {
 
         OrderStatusManageService orderStatusManageService = context.getBean(OrderStatusManageService.class);
         Order order = new Order();
+        order.setOid("1001200006");
         order.setStatus(OrderStatus.PAID.getCode());
-        orderStatusManageService.modifyOrderStatus(OrderEvent.READY_SEND, order);
+
+        boolean result = orderStatusManageService.modifyOrderStatus(OrderEvent.READY_SEND, order);
+
+        if (result) {
+            System.out.println(String.format(FORMAT, OrderEvent.READY_SEND.getEventCode(), order.getOid(), order.getStatus()));
+        }
 
     }
 

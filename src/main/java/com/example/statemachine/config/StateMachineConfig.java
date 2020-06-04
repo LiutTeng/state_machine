@@ -24,11 +24,17 @@ import java.util.EnumSet;
 @EnableStateMachine(name = "orderStateMachine")
 public class StateMachineConfig extends EnumStateMachineConfigurerAdapter<OrderStatus, OrderEvent> {
 
+    /**
+     * 定义状态机初始状态和所有的状态定义
+     */
     @Override
     public void configure(StateMachineStateConfigurer<OrderStatus, OrderEvent> states) throws Exception {
         states.withStates().initial(OrderStatus.PAID).states(EnumSet.allOf(OrderStatus.class));
     }
 
+    /**
+     * 定义状态机状态事件
+     */
     @Override
     public void configure(StateMachineTransitionConfigurer<OrderStatus, OrderEvent> transitions) throws Exception {
         transitions.withExternal()
@@ -44,6 +50,9 @@ public class StateMachineConfig extends EnumStateMachineConfigurerAdapter<OrderS
                 .event(OrderEvent.REFUND_SUC);
     }
 
+    /**
+     * 状态机状态与订单状态的同步
+     */
     @Bean
     public StateMachinePersister<OrderStatus, OrderEvent, Order> persister() {
         return new DefaultStateMachinePersister<>(new StateMachinePersist<OrderStatus, OrderEvent, Order>() {

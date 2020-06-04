@@ -32,8 +32,9 @@ public class OrderStatusManageServiceImpl implements OrderStatusManageService {
         try {
             orderStateMachine.start();
             persister.restore(orderStateMachine, order);
-            Message<OrderEvent> message = MessageBuilder.withPayload(event).setHeader("order", order).build();
-            result = orderStateMachine.sendEvent(message);
+//            Message<OrderEvent> message = MessageBuilder.withPayload(event).setHeader("order", order).build();
+//            result = orderStateMachine.sendEvent(message);
+            result = orderStateMachine.sendEvent(event);
             persister.persist(orderStateMachine, order);
 
         } catch (Exception e) {
