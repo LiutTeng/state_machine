@@ -14,8 +14,6 @@ import org.springframework.context.ConfigurableApplicationContext;
 @SpringBootApplication
 public class StateMachineApplication {
 
-    private static final String FORMAT = "事件: %s  单号: %s, 状态: %s";
-
     public static void main(String[] args) {
 
         ConfigurableApplicationContext context = SpringApplication.run(StateMachineApplication.class, args);
@@ -27,9 +25,7 @@ public class StateMachineApplication {
 
         boolean result = orderStatusManageService.modifyOrderStatus(OrderEvent.READY_SEND, order);
 
-        if (result) {
-            System.out.println(String.format(FORMAT, OrderEvent.READY_SEND.getEventCode(), order.getOid(), order.getStatus()));
-        }
+        // TODO .....
 
     }
 
